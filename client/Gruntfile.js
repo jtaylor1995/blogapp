@@ -71,12 +71,22 @@ module.exports = function (grunt) {
 
     // The actual grunt server settings
     connect: {
+
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost',
         livereload: 35729
       },
+
+       proxies: [
+         {
+           context: '/app',
+           host: 'localhost',
+           port: 9090,
+           changeOrigin: true
+         }
+       ],
 
      livereload: {
       options: {
@@ -128,15 +138,6 @@ module.exports = function (grunt) {
         }
       }
     },
-
-     proxies: [
-       {
-         context: '/app',
-         host: 'localhost',
-         port: 9090,
-         changeOrigin: true
-       }
-     ],
 
     // Make sure there are no obvious mistakes
     jshint: {
