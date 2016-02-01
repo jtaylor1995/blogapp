@@ -51,6 +51,7 @@
               </button>
               <ul class="dropdown-menu" role="menu">
                 <li><a ng-href="/#/dashboard">Dashboard</a></li>
+                <li><a ng-href="/#/addpost">Add post</a></li>
                 <li class="divider"></li>
                 <li><a href="#" ng-click="logout()">Logout</a></li>
               </ul>
@@ -62,15 +63,9 @@
 
     <div class="container">
       <div ng-controller="AlertsCtrl">
-        <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()">{{ alert.msg }}<br></alert>
+        <div class="alert alert-{{alert.type}}" ng-repeat="alert in alerts" type="{{ alert.type }}" close="alert.close()"><strong>{{ alert.type }}!</strong> {{ alert.msg }}<br></div>
       </div>
       <div ng-view=""></div>
-    </div>
-
-    <div class="footer">
-      <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-      </div>
     </div>
 
 
@@ -110,6 +105,8 @@
         <script src="scripts/services/user.js"></script>
         <script src="scripts/controllers/menu.js"></script>
         <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/controllers/addpost.js"></script>
+        <script src="scripts/controllers/viewpost.js"></script>
         <!-- endbuild -->
 </body>
 </html>

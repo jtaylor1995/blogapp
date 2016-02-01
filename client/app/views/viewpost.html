@@ -1,0 +1,11 @@
+<div class="panel panel-default" ng-show="post">
+  <div class="panel-body">
+    <h4>{{ post.subject }}</h4>
+    <p>
+      {{ post.content }}
+    </p>
+  </div>
+
+  <div class="panel-footer">Post by: {{ post.user.email }} | Comments
+    <span class="badge">{{ post.commentCount }}</span></div>
+</div>

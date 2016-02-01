@@ -1,14 +1,13 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import models.BlogPost;
 import models.User;
 import play.data.Form;
 import play.data.validation.Constraints;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-
-import javax.security.auth.login.LoginContext;
 
 public class Application extends Controller {
 
@@ -93,9 +92,21 @@ public class Application extends Controller {
         }
     }
 
+    public Result getPosts() {
+        return ok(Json.toJson(BlogPost.find.findList()));
+    }
+
+    public Result getPost(Long id) {
+        BlogPost blogPost = BlogPost.findBlogPostById(id);
+        if (blogPost == null) {
+            return notFound(buildJsonResponse("error", "Post not found"));
+        }
+        return ok(Json.toJson(blogPost));
+    }
 
 
-    private static ObjectNode buildJsonResponse(String type, String message) {
+
+    public static ObjectNode buildJsonResponse(String type, String message) {
         ObjectNode wrapper = Json.newObject();
         ObjectNode msg = Json.newObject();
         msg.put("message", message);
