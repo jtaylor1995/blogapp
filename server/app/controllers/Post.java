@@ -1,6 +1,7 @@
 package controllers;
 
 import models.BlogPost;
+import models.PostComment;
 import models.User;
 import play.data.Form;
 import play.libs.Json;
@@ -47,5 +48,32 @@ public class Post extends Controller {
             return badRequest(Application.buildJsonResponse("error", "No such user"));
         }
         return ok(Json.toJson(BlogPost.findBlogPostsByUser(user)));
+    }
+
+
+    public static class CommentForm {
+        @Constraints.Required
+        public Long postId;
+
+        @Constraints.Required
+        public String comment;
+    }
+
+    public Result addComment() {
+        Form<CommentForm> commentForm = Form.form(CommentForm.class).bindFromRequest();
+
+        if (commentForm.hasErrors()) {
+            return badRequest(commentForm.errorsAsJson());
+        } else {
+            PostComment newComment = new PostComment();
+            BlogPost blogPost = BlogPost.findBlogPostById(commentForm.get().postId);
+            blogPost.commentCount++;
+            blogPost.save();
+            newComment.blogPost = blogPost;
+            newComment.user = getUser();
+            newComment.content = commentForm.get().comment;
+            newComment.save();
+            return ok(Application.buildJsonResponse("success", "Comment added successfully"));
+        }
     }
 }
