@@ -9,6 +9,7 @@ create table blog_post (
   content                   TEXT,
   user_id                   bigint,
   comment_count             bigint,
+  like_count                bigint,
   constraint pk_blog_post primary key (id))
 ;
 

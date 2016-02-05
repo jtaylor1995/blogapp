@@ -50,4 +50,29 @@ angular.module('clientApp')
             });
       };
 
+      $scope.likePost = function() {
+        var payload = {
+          postId: $scope.postId
+        };
+
+        $http.post('/app/likePost', payload)
+          .error(function(data, status) {
+            if(status === 400) {
+              angular.forEach(data, function(value, key) {
+                alertService.add('danger', value.message);
+              });
+            } else if(status === 401) {
+              $location.path('/login');
+            } else if(status === 500) {
+              alertService.add('danger', 'Internal server error');
+            } else {
+              alertService.add('danger', data)
+            }
+          })
+          .success(function(data) {
+            alertService.add('success', data.success.message);
+            $scope.viewPost();
+          });
+      };
+
     });

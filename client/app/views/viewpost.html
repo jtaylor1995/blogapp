@@ -7,8 +7,16 @@
   </div>
 
   <div class="panel-footer">Post by: {{ post.user.email }} | Comments
-    <span class="badge">{{ post.commentCount }}</span></a></div>
+    <span class="badge">Comment count: {{ post.commentCount }}</span>
+    <span class="badge">Like count: {{ post.likeCount }}</span>
+  </div>
 </div>
+
+<div ng-hide="user.username || !post"><h4><a ng-href="/#/login">Login</a> to like post</h4></div>
+  <form name="likePostForm" ng-submit="likePost()" novalidate ng-show="user.username">
+    <button type="submit" class="btn btn-secondary">Like post</button>
+  </form>
+
 
 <div class="well" ng-repeat="comment in post.comments">
   <span class="label label-default">By: {{ comment.user.email }}</span>

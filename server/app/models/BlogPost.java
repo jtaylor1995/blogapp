@@ -33,6 +33,8 @@ public class BlogPost extends Model {
 
     public Long commentCount;
 
+    public Long likeCount;
+
     @OneToMany(cascade = CascadeType.ALL)
     public List<PostComment> comments;
 
