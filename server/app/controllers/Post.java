@@ -33,6 +33,7 @@ public class Post extends Controller {
         } else {
             BlogPost newBlogPost = new BlogPost();
             newBlogPost.commentCount = 0L;
+            newBlogPost.likeCount = 0L;
             newBlogPost.subject = postForm.get().subject;
             newBlogPost.content = postForm.get().content;
             newBlogPost.user = getUser();
@@ -43,10 +44,11 @@ public class Post extends Controller {
 
     public Result getUserPosts() {
         User user = getUser();
-
-        if (user == null) {
-            return badRequest(Application.buildJsonResponse("error", "No such user"));
-        }
+//        if (user == null) {
+//            //return badRequest(Application.buildJsonResponse("error", "No such user"));
+//        }
+        //Not sure what to do above, brings error when first time sign up
+        //maybe sign up should take you to /# not /dashboard
         return ok(Json.toJson(BlogPost.findBlogPostsByUser(user)));
     }
 
@@ -74,6 +76,32 @@ public class Post extends Controller {
             newComment.content = commentForm.get().comment;
             newComment.save();
             return ok(Application.buildJsonResponse("success", "Comment added successfully"));
+        }
+    }
+
+    public static class LikeForm {
+        @Constraints.Required
+        public Long postId;
+    }
+
+    public Result likePost() {
+        Form<LikeForm> likeForm = Form.form(LikeForm.class).bindFromRequest();
+
+        if (likeForm.hasErrors()) {
+            return badRequest(likeForm.errorsAsJson());
+        } else {
+            BlogPost blogPost = BlogPost.findBlogPostById(likeForm.get().postId);
+            User user = getUser();
+            if (user.hasUserAlreadyLiked(blogPost, user.id)) {
+                return ok(Application.buildJsonResponse("success", "Cannot like a post twice"));
+            }
+            else {
+                user.blogPost = blogPost;
+                blogPost.likeCount++;
+                blogPost.save();
+                user.save();
+                return ok(Application.buildJsonResponse("success", "Post liked successfully"));
+            }
         }
     }
 }

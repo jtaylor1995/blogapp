@@ -9,6 +9,7 @@ create table blog_post (
   content                   TEXT,
   user_id                   bigint,
   comment_count             bigint,
+  like_count                bigint,
   constraint pk_blog_post primary key (id))
 ;
 
@@ -24,6 +25,7 @@ create table user (
   id                        bigint not null,
   email                     varchar(255) not null,
   sha_password              varbinary(64) not null,
+  blog_post_id              bigint,
   constraint uq_user_email unique (email),
   constraint pk_user primary key (id))
 ;
@@ -40,6 +42,8 @@ alter table post_comment add constraint fk_post_comment_blogPost_2 foreign key (
 create index ix_post_comment_blogPost_2 on post_comment (blog_post_id);
 alter table post_comment add constraint fk_post_comment_user_3 foreign key (user_id) references user (id) on delete restrict on update restrict;
 create index ix_post_comment_user_3 on post_comment (user_id);
+alter table user add constraint fk_user_blogPost_4 foreign key (blog_post_id) references blog_post (id) on delete restrict on update restrict;
+create index ix_user_blogPost_4 on user (blog_post_id);
 
 
 
