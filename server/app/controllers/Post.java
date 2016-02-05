@@ -91,11 +91,17 @@ public class Post extends Controller {
             return badRequest(likeForm.errorsAsJson());
         } else {
             BlogPost blogPost = BlogPost.findBlogPostById(likeForm.get().postId);
-
+            User user = getUser();
+            if (user.hasUserAlreadyLiked(blogPost, user.id)) {
+                return ok(Application.buildJsonResponse("success", "Cannot like a post twice"));
+            }
+            else {
+                user.blogPost = blogPost;
                 blogPost.likeCount++;
                 blogPost.save();
+                user.save();
                 return ok(Application.buildJsonResponse("success", "Post liked successfully"));
-
+            }
         }
     }
 }

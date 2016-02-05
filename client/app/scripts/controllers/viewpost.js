@@ -70,7 +70,11 @@ angular.module('clientApp')
             }
           })
           .success(function(data) {
-            alertService.add('success', data.success.message);
+            if (data.success.message == "Cannot like a post twice") {
+              alertService.add('warning', data.success.message);
+            } else {
+              alertService.add('success', data.success.message);
+            }
             $scope.viewPost();
           });
       };

@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import play.data.validation.Constraints;
 import com.avaje.ebean.Model;
@@ -35,6 +36,10 @@ public class User extends Model {
     @JsonIgnore
     public List<BlogPost> posts;
 
+    @ManyToOne
+    @JsonIgnore
+    public BlogPost blogPost;
+
     public void setPassword(String password) {
         this.shaPassword = getSha512(password);
     }
@@ -52,6 +57,14 @@ public class User extends Model {
                 .eq("email", email.toLowerCase())
                 .eq("shaPassword", getSha512(password))
                 .findUnique();
+    }
+
+    public static boolean hasUserAlreadyLiked(BlogPost blogPost, long id) {
+        if (find.where().eq("blogPost", blogPost).eq("id", id).findUnique() == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public static User findByEmail(String email) {

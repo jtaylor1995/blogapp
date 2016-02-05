@@ -38,6 +38,9 @@ public class BlogPost extends Model {
     @OneToMany(cascade = CascadeType.ALL)
     public List<PostComment> comments;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    public List<User> likedBy;
+
     public static final Finder<Long, BlogPost> find = new Finder<Long, BlogPost>(
             Long.class, BlogPost.class);
 
