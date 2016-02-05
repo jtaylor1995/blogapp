@@ -1,6 +1,9 @@
 package models;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,6 +46,13 @@ public class BlogPost extends Model {
 
     public static final Finder<Long, BlogPost> find = new Finder<Long, BlogPost>(
             Long.class, BlogPost.class);
+
+    public static List<BlogPost> findAllBlogPosts() {
+        List<BlogPost> blogPostList = find.findList();
+        return blogPostList.stream().sorted(
+                (bp1, bp2) -> Long.compare(bp2.likeCount * 2 + bp2.commentCount, bp1.likeCount * 2 + bp1.commentCount)
+        ).collect(Collectors.toList());
+    }
 
     public static List<BlogPost> findBlogPostsByUser(final User user) {
         return find

@@ -93,7 +93,7 @@ public class Application extends Controller {
     }
 
     public Result getPosts() {
-        return ok(Json.toJson(BlogPost.find.findList()));
+        return ok(Json.toJson(BlogPost.findAllBlogPosts()));
     }
 
     public Result getPost(Long id) {

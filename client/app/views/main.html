@@ -18,5 +18,7 @@
   <div class="panel-footer"> Post by: {{ post.user.email }} |
     <a ng-href="/#/viewpost/{{ post.id }}">Comments
     <span class="badge">{{ post.commentCount }}</span></a>
+    <a ng-href="/#/viewpost/{{ post.id }}">Likes
+    <span class="badge">{{ post.likeCount }}</span></a>
   </div>
 </div>
