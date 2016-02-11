@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import com.avaje.ebean.Model;
+import controllers.Post;
 
 /**
  * Model representing Comments to Blog Posts
@@ -42,6 +43,13 @@ public class PostComment extends Model {
                 .where()
                 .eq("user", user)
                 .findList();
+    }
+
+    public static PostComment findCommentById(final long id) {
+        return find
+                .where()
+                .eq("id", id)
+                .findUnique();
     }
 
 }
