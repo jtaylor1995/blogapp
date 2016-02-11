@@ -1,17 +1,26 @@
+<div ng-hide="!posts.length"><h4><a ng-href="/#/addpost">
+  <span class="glyphicon glyphicon-plus"></span> New post</a></h4></div>
+<br>
 <h4>My Posts</h4>
 <br>
 <div ng-hide="posts.length">No posts yet. <a ng-href="/#/addpost">Add a post</a></div>
-<div class="panel panel-default" ng-repeat="post in posts">
-  <div class="panel-body">
+<div class="panel panel-primary" ng-repeat="post in posts">
+  <div class="panel-heading">
     <h4>{{ post.subject }}</h4>
-    <p>
+  </div>
+  <div class="panel-body">
+    <a ng-href="/#/viewpost/{{ post.id }}"><p>
       {{ post.content }}
-    </p>
+    </p></a>
   </div>
 
   <div class="panel-footer">
     <a ng-href="/#/viewpost/{{ post.id }}">Likes
       <span class="badge">{{ post.likeCount }}</span></a>
     <a ng-href="/#/viewpost/{{ post.id }}">Comments
+      <span class="badge">{{ post.commentCount }}</span></a>
   </div>
 </div>
+
+<br>
+
