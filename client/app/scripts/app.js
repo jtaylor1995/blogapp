@@ -45,6 +45,10 @@ angular
         templateUrl: 'views/viewpost.html',
         controller: 'ViewpostCtrl'
       })
+      .when('/viewcomment/:commentId', {
+        templateUrl: 'views/viewcomment.html',
+        controller: 'ViewcommentCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

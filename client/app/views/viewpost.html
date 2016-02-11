@@ -20,8 +20,9 @@
 
 <div class="well" ng-repeat="comment in post.comments">
   <span class="label label-default">By: {{ comment.user.email }}</span>
+  <h4>commentID TEST: {{ comment.id }}</h4>
   <br/>
-  {{ comment.content }}
+  <a ng-href="/#/viewcomment/{{ comment.id }}"> {{ comment.content }}</a>
 </div>
 
 <form name="addCommentForm" ng-submit="addComment()" novalidate ng-show="user.username">

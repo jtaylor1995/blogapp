@@ -22,7 +22,7 @@ angular.module('clientApp')
           } else if (status === 500) {
             alertService.add('danger', 'Internal server error!');
           } else {
-            alertService.add('danger', data)
+            alertService.add('danger', data);
           }
         })
         .success(function(data) {

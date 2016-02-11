@@ -13,6 +13,7 @@ angular.module('clientApp')
               alertService.add('danger', data.error.message);
             })
             .success(function(data) {
+              console.log("DATA POST" + data.post)
               $scope.post = data;
             });
       };
@@ -66,11 +67,11 @@ angular.module('clientApp')
             } else if(status === 500) {
               alertService.add('danger', 'Internal server error');
             } else {
-              alertService.add('danger', data)
+              alertService.add('danger', data);
             }
           })
           .success(function(data) {
-            if (data.success.message == "Cannot like a post twice") {
+            if (data.success.message === "Cannot like a post twice") {
               alertService.add('warning', data.success.message);
             } else {
               alertService.add('success', data.success.message);
