@@ -1,17 +1,18 @@
-<div class="panel panel-default" ng-show="comment">
+<div class="panel panel-primary" ng-show="comment">
   <div class="panel-body">
     <p>
       {{ comment.content }}
     </p>
   </div>
 
-  <div ng-hide="user.username || !comment"><h4><a ng-href="/#/login">Login</a> to like</h4></div>
-    <form name="likeCommentForm" ng-submit="likeComment()" novalidate ng-show="user.username">
-      <button type="submit" class="btn btn-secondary">Like comment</button>
-    </form>
-  </div>
-
   <div class="panel-footer">Comment by: {{ comment.user.email }}
     <span class="badge">Like count: {{ comment.likeCount }}</span>
   </div>
 </div>
+
+<div ng-hide="user.username || !comment"><h4><a ng-href="/#/login">Login</a> to like</h4></div>
+<form name="likeCommentForm" ng-submit="likeComment()" novalidate ng-show="user.username">
+  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-thumbs-up"></span> Like comment</button>
+</form>
+</div>
+

@@ -16,7 +16,7 @@
 
 <div ng-hide="user.username || !post"><h4><a ng-href="/#/login">Login</a> to like/comment</h4></div>
 <form name="likePostForm" ng-submit="likePost()" novalidate ng-show="user.username">
-  <button type="submit" class="btn btn-secondary">Like post</button>
+  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-thumbs-up"></span> Like post</button>
 </form>
 <br>
 
@@ -41,5 +41,5 @@
   </div>
 
   <br>
-  <button type="submit" class="btn btn-primary">Add comment</button>
+  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add comment</button>
 </form>
