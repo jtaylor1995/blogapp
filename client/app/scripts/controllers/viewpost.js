@@ -13,7 +13,6 @@ angular.module('clientApp')
               alertService.add('danger', data.error.message);
             })
             .success(function(data) {
-              console.log("DATA POST" + data.post)
               $scope.post = data;
             });
       };

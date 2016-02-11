@@ -27,6 +27,7 @@ create table user (
   email                     varchar(255) not null,
   sha_password              varbinary(64) not null,
   blog_post_id              bigint,
+  post_comment_id           bigint,
   constraint uq_user_email unique (email),
   constraint pk_user primary key (id))
 ;
@@ -45,6 +46,8 @@ alter table post_comment add constraint fk_post_comment_user_3 foreign key (user
 create index ix_post_comment_user_3 on post_comment (user_id);
 alter table user add constraint fk_user_blogPost_4 foreign key (blog_post_id) references blog_post (id) on delete restrict on update restrict;
 create index ix_user_blogPost_4 on user (blog_post_id);
+alter table user add constraint fk_user_postComment_5 foreign key (post_comment_id) references post_comment (id) on delete restrict on update restrict;
+create index ix_user_postComment_5 on user (post_comment_id);
 
 
 
