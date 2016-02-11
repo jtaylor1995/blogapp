@@ -2,10 +2,13 @@ package models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 import com.avaje.ebean.Model;
 import controllers.Post;
 
@@ -27,6 +30,11 @@ public class PostComment extends Model {
 
     @Column(columnDefinition = "TEXT")
     public String content;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    public List<User> likedBy;
+
+    public long likeCount;
 
     public static final Finder<Long, PostComment> find = new Finder<Long, PostComment>(
             Long.class, PostComment.class);

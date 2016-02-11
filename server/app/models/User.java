@@ -40,6 +40,10 @@ public class User extends Model {
     @JsonIgnore
     public BlogPost blogPost;
 
+    @ManyToOne
+    @JsonIgnore
+    public PostComment postComment;
+
     public void setPassword(String password) {
         this.shaPassword = getSha512(password);
     }
@@ -61,6 +65,14 @@ public class User extends Model {
 
     public static boolean hasUserAlreadyLiked(BlogPost blogPost, long id) {
         if (find.where().eq("blogPost", blogPost).eq("id", id).findUnique() == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static boolean hasUserAlreadyLiked(PostComment postComment, long id) {
+        if (find.where().eq("postComment", postComment).eq("id", id).findUnique() == null) {
             return false;
         } else {
             return true;

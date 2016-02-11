@@ -18,6 +18,7 @@ create table post_comment (
   blog_post_id              bigint,
   user_id                   bigint,
   content                   TEXT,
+  like_count                bigint,
   constraint pk_post_comment primary key (id))
 ;
 

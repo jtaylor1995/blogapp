@@ -74,6 +74,7 @@ public class Post extends Controller {
             newComment.blogPost = blogPost;
             newComment.user = getUser();
             newComment.content = commentForm.get().comment;
+            newComment.likeCount = 0L;
             newComment.save();
             return ok(Application.buildJsonResponse("success", "Comment added successfully"));
         }

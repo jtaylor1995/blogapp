@@ -17,6 +17,7 @@ POST    /app/comment                controllers.Post.addComment()
 POST    /app/likePost               controllers.Post.likePost()
 
 GET     /app/comment/:id            controllers.Comment.getComment(id: Long)
+POST    /app/likeComment            controllers.Comment.likeComment()
 
 
 # Map static resources from the /public folder to the /assets URL path
