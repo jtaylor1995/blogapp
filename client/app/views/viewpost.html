@@ -1,6 +1,8 @@
-<div class="panel panel-default" ng-show="post">
-  <div class="panel-body">
+<div class="panel panel-primary" ng-show="post">
+  <div class="panel-heading">
     <h4>{{ post.subject }}</h4>
+  </div>
+  <div class="panel-body">
     <p>
       {{ post.content }}
     </p>
@@ -13,15 +15,21 @@
 </div>
 
 <div ng-hide="user.username || !post"><h4><a ng-href="/#/login">Login</a> to like/comment</h4></div>
-  <form name="likePostForm" ng-submit="likePost()" novalidate ng-show="user.username">
-    <button type="submit" class="btn btn-secondary">Like post</button>
-  </form>
+<form name="likePostForm" ng-submit="likePost()" novalidate ng-show="user.username">
+  <button type="submit" class="btn btn-secondary">Like post</button>
+</form>
+<br>
 
+<h4>Comments</h4>
 
-<div class="well" ng-repeat="comment in post.comments">
-  <span class="label label-default">By: {{ comment.user.email }}</span>
-  <br/>
-  <a ng-href="/#/viewcomment/{{ comment.id }}"> {{ comment.content }}</a>
+<div class="panel panel-primary" ng-repeat="comment in post.comments">
+  <div class="panel-body">
+    <a ng-href="/#/viewcomment/{{ comment.id }}"> {{ comment.content }}</a>
+  </div>
+  <div class="panel-footer">
+    <span class="label label-default">By: {{ comment.user.email }}</span>
+    Likes <span class="badge">{{ comment.likeCount }}</span></a>
+  </div>
 </div>
 
 <form name="addCommentForm" ng-submit="addComment()" novalidate ng-show="user.username">
@@ -32,5 +40,6 @@
               ng-model="comment"></textarea>
   </div>
 
+  <br>
   <button type="submit" class="btn btn-primary">Add comment</button>
 </form>
