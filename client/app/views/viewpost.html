@@ -8,9 +8,10 @@
     </p>
   </div>
 
-  <div class="panel-footer">Post by: {{ post.user.email }} | Comments
-    <span class="badge">Comment count: {{ post.commentCount }}</span>
-    <span class="badge">Like count: {{ post.likeCount }}</span>
+  <div class="panel-footer">
+    <span class="badge">By: {{ post.user.email }}</span>
+    Likes <span class="badge">{{ post.likeCount }}</span>
+    Comment <span class="badge">{{ post.countCount }}</span>
   </div>
 </div>
 
