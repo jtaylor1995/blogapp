@@ -8,6 +8,7 @@ import play.data.validation.Constraints;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import services.BlogPostService;
 
 public class Application extends Controller {
 
@@ -93,11 +94,11 @@ public class Application extends Controller {
     }
 
     public Result getPosts() {
-        return ok(Json.toJson(BlogPost.findAllBlogPosts()));
+        return ok(Json.toJson(BlogPostService.findAllBlogPosts()));
     }
 
     public Result getPost(Long id) {
-        BlogPost blogPost = BlogPost.findBlogPostById(id);
+        BlogPost blogPost = BlogPostService.findBlogPostById(id);
         if (blogPost == null) {
             return notFound(buildJsonResponse("error", "Post not found"));
         }

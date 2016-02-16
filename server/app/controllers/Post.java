@@ -8,6 +8,7 @@ import play.libs.Json;
 import play.data.validation.Constraints;
 import play.mvc.Controller;
 import play.mvc.Result;
+import services.BlogPostService;
 
 public class Post extends Controller {
 
@@ -49,7 +50,7 @@ public class Post extends Controller {
 //        }
         //Not sure what to do above, brings error when first time sign up
         //maybe sign up should take you to /# not /dashboard
-        return ok(Json.toJson(BlogPost.findBlogPostsByUser(user)));
+        return ok(Json.toJson(BlogPostService.findBlogPostsByUser(user)));
     }
 
 
@@ -68,7 +69,7 @@ public class Post extends Controller {
             return badRequest(commentForm.errorsAsJson());
         } else {
             PostComment newComment = new PostComment();
-            BlogPost blogPost = BlogPost.findBlogPostById(commentForm.get().postId);
+            BlogPost blogPost = BlogPostService.findBlogPostById(commentForm.get().postId);
             blogPost.commentCount++;
             blogPost.save();
             newComment.blogPost = blogPost;
@@ -91,7 +92,7 @@ public class Post extends Controller {
         if (likeForm.hasErrors()) {
             return badRequest(likeForm.errorsAsJson());
         } else {
-            BlogPost blogPost = BlogPost.findBlogPostById(likeForm.get().postId);
+            BlogPost blogPost = BlogPostService.findBlogPostById(likeForm.get().postId);
             User user = getUser();
             if (user.hasUserAlreadyLiked(blogPost, user.id)) {
                 return ok(Application.buildJsonResponse("success", "Cannot like a post twice"));
