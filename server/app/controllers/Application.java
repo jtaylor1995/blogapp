@@ -9,6 +9,7 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import services.BlogPostService;
+import services.UserService;
 
 public class Application extends Controller {
 
@@ -20,7 +21,7 @@ public class Application extends Controller {
             return badRequest(signUpForm.errorsAsJson());
         }
         SignUp newUser = signUpForm.get();
-        User existingUser = User.findByEmail(newUser.email);
+        User existingUser = UserService.findByEmail(newUser.email);
         if (existingUser != null) {
             return badRequest(buildJsonResponse("error", "User exists"));
         } else {
@@ -59,7 +60,7 @@ public class Application extends Controller {
         }
 
         Login loggingInUser = loginForm.get();
-        User user = User.findByEmailAndPassword(loggingInUser.email, loggingInUser.password);
+        User user = UserService.findByEmailAndPassword(loggingInUser.email, loggingInUser.password);
         if(user == null) {
             return badRequest(buildJsonResponse("error", "Incorrect email or password"));
         } else {

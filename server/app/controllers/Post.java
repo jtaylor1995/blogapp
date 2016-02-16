@@ -9,6 +9,7 @@ import play.data.validation.Constraints;
 import play.mvc.Controller;
 import play.mvc.Result;
 import services.BlogPostService;
+import services.UserService;
 
 public class Post extends Controller {
 
@@ -23,7 +24,7 @@ public class Post extends Controller {
     }
 
     private static User getUser() {
-        return User.findByEmail(session().get("username"));
+        return UserService.findByEmail(session().get("username"));
     }
 
     public Result addPost() {
@@ -94,7 +95,7 @@ public class Post extends Controller {
         } else {
             BlogPost blogPost = BlogPostService.findBlogPostById(likeForm.get().postId);
             User user = getUser();
-            if (user.hasUserAlreadyLiked(blogPost, user.id)) {
+            if (UserService.hasUserAlreadyLiked(blogPost, user.id)) {
                 return ok(Application.buildJsonResponse("success", "Cannot like a post twice"));
             }
             else {
